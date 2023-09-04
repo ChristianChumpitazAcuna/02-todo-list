@@ -15,7 +15,7 @@ export class TodoListComponent {
     },
 
     {
-      title: 'Crear la lista de tareas',
+      title: 'Realizar la estructura HTML',
       completed: true
     },
 
@@ -34,6 +34,15 @@ export class TodoListComponent {
     this.newTask = '';
   }
 
+  updateTask(task: any , title:string){
+    const index = this.tasks.indexOf(task);
+    const updateTask = {
+      title,
+      completed: task.completed
+    }
+    this.tasks[index] = {...task, ...updateTask};
+  }
+
   deleteTask(task: any) {
     const index = this.tasks.indexOf(task);
     this.tasks.splice(index, 1);
@@ -45,6 +54,8 @@ export class TodoListComponent {
 
   stopEdit(task: any, title: string): void {
     this.editableId = null;
+    this.updateTask(task, title);
+    
   }
 
 
