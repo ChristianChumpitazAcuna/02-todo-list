@@ -14,7 +14,7 @@
           <input type="text" class="form-control rounded-pill" placeholder="Agregar tarea" aria-label="Agregar tarea"
             aria-describedby="btn-add-task" [(ngModel)]="newTask" />
 
-          <button class="btn btn-dark rounded-pill" type="button" id="btn-add-task" (click)="addTask()">
+          <button class="btn  btn-outline-primary rounded-pill" type="button" id="btn-add-task" (click)="addTask()">
             <i class="bi bi-plus-lg"></i>
           </button>
         </div>
@@ -25,10 +25,10 @@
         <!-- Input text Buscar -->
         <div class="input-group mb-3">
 
-          <input type="text" class="form-control rounded-pill" placeholder="Buscar Tarea"
-            [(ngModel)]='busqueda' (ngModelChange)="searchTask()"/>  
+          <input type="text" class="form-control rounded-pill" placeholder="Buscar Tarea" [(ngModel)]='busqueda'
+            (ngModelChange)="searchTask()" />
 
-          <button class="btn btn-primary rounded-circle" type="button" id="btn-add-task" (click)="searchTask()">
+          <button class="btn btn-outline-primary rounded-circle" type="button" id="btn-add-task" (click)="searchTask()">
             <i class="bi bi-search"></i>
           </button>
 
@@ -39,45 +39,47 @@
   </div>
 
 
-
   <!-- Task list -->
-  <ul class="list-group mb-0" *ngIf="tasks && tasks.length > 0; else notDataTpl">
-    <li *ngFor="let task of (resultados.length > 0 ? resultados : tasks); let i = index"
-      class="list-group-item d-flex justify-content-between align-items-center border-0 mb-2 rounded"
-      style="background-color: #f4f6f7">
-      <div>
-        <input class="form-check-input me-2" type="checkbox" [(ngModel)]="task.completed" />
-        <!-- <span [ngClass]="{'text-decoration-line-through': task.completed}">{{task.title}}</span> -->
-        <span *ngIf="editableId !== i; else editableCell" [ngClass]="{ 'text-decoration-line-through': task.completed }"
-          (dblclick)="startEdit(i)">
-          {{ task.title }}
-        </span>
-        <ng-template #editableCell>
-          <input class="px-2" type="text" #editInput [value]="task.title" (blur)="stopEdit(task, editInput.value)"
-            (keyup.enter)="stopEdit(task, editInput.value)" />
-        </ng-template>
-      </div>
-      <div class="btn-delete-task cursor-pointer" (click)="deleteTask(task)">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill"
-          viewBox="0 0 16 16">
-          <path
-            d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-        </svg>
-      </div>
-    </li>
-  </ul>
+  <ng-container *ngIf="(tasks.length > 0 ); else noResultsTpl">
+    <ul class="list-group mb-0">
+      <li *ngFor="let task of (resultados.length > 0 ? resultados : tasks); let i = index"
+        class="list-group-item d-flex justify-content-between align-items-center border-0 mb-2 rounded"
+        style="background-color: #f4f6f7">
+        <div>
+          <input class="form-check-input me-2" type="checkbox" [(ngModel)]="task.completed" />
+          <!-- <span [ngClass]="{'text-decoration-line-through': task.completed}">{{task.title}}</span> -->
+          <span *ngIf="editableId !== i; else editableCell"
+            [ngClass]="{ 'text-decoration-line-through': task.completed }" (dblclick)="startEdit(i)">
+            {{ task.title }}
+          </span>
+          <ng-template #editableCell>
+            <input class="form-text" type="text" #editInput [value]="task.title" (blur)="stopEdit(task, editInput.value)"
+              (keyup.enter)="stopEdit(task, editInput.value)" />
+          </ng-template>
+        </div>
+        <div class="btn-delete-task cursor-pointer" (click)="deleteTask(task)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill"
+            viewBox="0 0 16 16">
+            <path
+              d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+          </svg>
+        </div>
+      </li>
+    </ul>
+  </ng-container>
 
   <!-- Tpl no hay data -->
+  <!--
   <ng-template #notDataTpl>
     <div class="d-flex flex-column align-items-center">
       <img src="assets/svgs/undraw_clean_up_re_504g.svg" width="200" height="200" alt="No hay data" />
       <span class="fs-6 text-secondary">No existe ninguna tarea</span>
     </div>
-  </ng-template>
+  </ng-template> 
+ -->
 
   <!-- Tpl no hay resultados -->
-
-  <ng-template  *ngIf="noHayResultados">
+  <ng-template #noResultsTpl>
     <div class="d-flex flex-column align-items-center">
       <img src="assets/svgs/undraw_void_-3-ggu.svg" width="200" height="200" alt="No hay data" />
       <span class="fs-6 text-secondary">No se encontro la tarea</span>

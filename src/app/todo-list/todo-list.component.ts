@@ -10,33 +10,34 @@ export class TodoListComponent {
   newTask = '';
   resultados: any[] = [];
   busqueda: string = '';
-  noHayResultados: boolean = false;
 
   tasks: any[] = [
     {
-      title: 'Crear la lista de tareas',
+      title: 'Tarzan',
       completed: true,
     },
 
     {
-      title: 'Realizar la estructura HTML',
+      title: 'Kira',
       completed: true,
     },
 
     {
-      title: 'Desplegar el proyecto en la web',
+      title: 'Cuy',
+      completed: true,
+    },
+
+    {
+      title: 'Molleja',
       completed: true,
     },
   ];
 
-
   searchTask() {
     if (this.busqueda) {
       this.resultados = this.tasks.filter(item => item.title.toLowerCase().includes(this.busqueda.toLowerCase()));
-      this.noHayResultados = this.resultados.length === 0; 
     } else {
-      this.resultados = []; 
-      this.noHayResultados = false;
+      this.resultados = [];
     }
   }
 
