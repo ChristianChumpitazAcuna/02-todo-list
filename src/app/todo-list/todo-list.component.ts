@@ -13,23 +13,16 @@ export class TodoListComponent {
 
   tasks: any[] = [
     {
-      title: 'Tarzan',
+      title: 'Crear la lista de tareas',
       completed: true,
     },
-
     {
-      title: 'Kira',
+      title: 'Realizar la estructura HTML',
       completed: true,
     },
-
     {
-      title: 'Cuy',
-      completed: true,
-    },
-
-    {
-      title: 'Molleja',
-      completed: true,
+      title: 'Desplegar el proyecto en la web',
+      completed: false,
     },
   ];
 
